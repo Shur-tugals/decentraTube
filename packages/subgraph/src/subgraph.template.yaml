@@ -20,6 +20,10 @@ dataSources:
         - name: YourContract
           file: ./abis/localhost_YourContract.json
       eventHandlers:
-        - event: SetPurpose(address,string)
-          handler: handleSetPurpose
+        - event: NewVideo(uint256,address,string)
+          handler: handleNewVideo
+        - event: NewTip(address,address,uint256,uint256)
+          handler: handleNewTip
+        - event: NewWithdraw(address,uint256)
+          handler: handleNewWithdraw
       file: ./src/mapping.ts

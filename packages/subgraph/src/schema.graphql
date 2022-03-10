@@ -1,15 +1,46 @@
-type Purpose @entity {
+type Video @entity {
   id: ID!
-  sender: Sender!
-  purpose: String!
+  owner: User!
+  tokenURI: String
+  createdAt: BigInt!
+  tips: [Tip!] @derivedFrom(field: "video")
+  tipCount: BigInt!
+  totalTips: BigInt!
+  transactionHash: String!
+}
+
+type User @entity {
+  id: ID!
+  address: Bytes!
+  videos: [Video!] @derivedFrom(field: "owner")
+  videoCount: BigInt!
+  tipsReceived: [Tip!] @derivedFrom(field: "to")
+  tipsReceivedCount: BigInt!
+  totalReceived: BigInt!
+  tipsSent: [Tip!] @derivedFrom(field: "from")
+  tipsSentCount: BigInt!
+  totalSent: BigInt!
+  withdraws: [Withdraw!] @derivedFrom(field: "user")
+  withdrawCount: BigInt!
+  totalWithdrawn: BigInt!
+  balance: BigInt!
+  createdAt: BigInt!
+}
+
+type Tip @entity {
+  id: ID!
+  from: User!
+  to: User!
+  video: Video!
+  amount: BigInt!
   createdAt: BigInt!
   transactionHash: String!
 }
 
-type Sender @entity {
+type Withdraw @entity {
   id: ID!
-  address: Bytes!
-  purposes: [Purpose!] @derivedFrom(field: "sender")
+  user: User!
+  amount: BigInt!
   createdAt: BigInt!
-  purposeCount: BigInt!
+  transactionHash: String!
 }
